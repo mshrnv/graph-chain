@@ -9,6 +9,7 @@ const GraphConfig = {
     "highlightDegree": 1,
     "highlightOpacity": 1,
     "linkHighlightBehavior": true,
+    "initialZoom": 0.8,
     "maxZoom": 8,
     "minZoom": 0.1,
     "nodeHighlightBehavior": true,
