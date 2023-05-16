@@ -5,9 +5,6 @@ const bodyParser = require('body-parser')
 const router = require("./routers/Router");
 require('dotenv').config(); // For .env files
 
-// Router import
-// const router = require()
-
 // Server port
 const EXPRESS_PORT = process.env.EXPRESS_PORT || 5000
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/graphs'

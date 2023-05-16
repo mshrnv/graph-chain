@@ -1,11 +1,13 @@
 const Graph = require('../models/Graph')
 
 class GraphService {
+    // List of all graphs
     static async getAllGraphs() {
         const graphs = await Graph.find({})
         return graphs
     }
 
+    // Creates new graph
     static async newGraph(name, data) {
         const doc = new Graph({name, data});
         await doc.save();
@@ -13,11 +15,13 @@ class GraphService {
         return doc;
     }
 
+    // Returns graph data by graph name
     static async getByName(name) {
         const graph = await Graph.findOne({name})
         return graph
     }
 
+    // Update graph
     static async updateGraph(_id, data) {
         const doc = await Graph.findById(_id)
         doc.data = data
