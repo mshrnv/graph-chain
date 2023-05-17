@@ -2,7 +2,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const router = require("./routers/Router");
+const graphRouter = require("./routers/GraphRouter");
+const likeRouter = require("./routers/LikeRouter");
 require('dotenv').config(); // For .env files
 
 // Server port
@@ -20,7 +21,8 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(cors())
 
 // Routes
-app.use("/", router)
+app.use("/", graphRouter)
+app.use("/", likeRouter)
 
 
 const start = () => {
