@@ -4,7 +4,7 @@ pragma solidity ^0.8.4;
 contract Graph {
 
     uint public graphPrice = 2 ether;
-    uint public userStartBalance = 2 ether;
+    uint public userStartBalance = 11 ether;
     address public owner;
 
     address[] public users;
