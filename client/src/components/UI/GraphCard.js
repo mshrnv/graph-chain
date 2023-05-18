@@ -8,6 +8,7 @@ import {styled} from "@mui/material/styles";
 import {Grid} from "@mui/material";
 import {useEffect, useState} from "react";
 import LikeService from "../../api/LikeService";
+import {Link} from "react-router-dom";
 
 const CardGraph = styled(Card)(({theme})=> ({
     margin: theme.spacing(2, 1),
@@ -48,7 +49,9 @@ export default function GraphCard(props) {
                     </div>
                     {
                         hasAccess ? (
-                            <Button size="small" sx={{marginLeft:'auto', verticalAlign: 'bottom', color: "green"}}>View</Button>
+                            <Link to={`/graph/${props.item._id}`} sx={{marginLeft: 'auto', verticalAlign: 'bottom', color: "green"}}>
+                                <Button size="small">View</Button>
+                            </Link>
                         ) : (
                             <Button size="small" sx={{marginLeft:'auto', verticalAlign: 'bottom'}}>Buy access</Button>
                         )

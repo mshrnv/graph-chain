@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { useParams } from "react-router-dom";
 import KnowledgeGraph from "./KnowledgeGraph";
 import NodeInfo from "./NodeInfo";
 import {styled} from "@mui/material/styles";
@@ -9,7 +10,9 @@ const GraphDiv = styled('div')(({theme})=> ({
 }))
 const GraphBox = () => {
 
-    const graphId = "64661b03f28096a71970636c";
+    // const graphId = "64661b03f28096a71970636c";
+    const { graphId } = useParams();
+
 
     const [owner, setOwner] = useState(null)
     const [data, setData] = useState({nodes: [], likes: []});
