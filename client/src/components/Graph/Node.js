@@ -10,8 +10,21 @@ import AdjustIcon from '@mui/icons-material/Adjust';
 import AddIcon from '@mui/icons-material/Add';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import DeleteIcon from '@mui/icons-material/Delete';
+import {styled} from "@mui/material/styles";
+import IconButton from '@mui/material/IconButton'
+import theme from "../../Theme";
 
-
+const NodeBtn = styled(IconButton)(({theme}) => ({
+    borderRadius: theme.shape.borderRadius.node,
+    width: '20px',
+    height: '20px',
+}))
+const NodeDiv = styled('div')(({theme})=>({
+    height: '100%',
+    justifyContent: 'center',
+    display: 'flex',
+    alignItems: 'center'
+}))
 const Node = ({node, data, setData, setSelected}) => {
     // Menu configuration
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -26,12 +39,13 @@ const Node = ({node, data, setData, setSelected}) => {
     };
 
     // View customization
+
     const variant = node.isFolder ? "contained" : "outlined";
-    let background = node.isFolder ? "#00a550" : "white";
+    let background = node.isFolder ? theme.palette.nodes.folder : theme.palette.nodes.file;
     let icon = node.isFolder ? (<FolderIcon/>) : (<GitHubIcon/>);
     if (node.isRoot) {
         icon = (<AdjustIcon />);
-        background = "#fc89ac"
+        background = theme.palette.nodes.root
     }
 
     // Menu buttons click handlers
@@ -39,8 +53,6 @@ const Node = ({node, data, setData, setSelected}) => {
         const randNum = Math.floor(Math.random() * 10000) + 1;
         setData({nodes: [...data.nodes, {
                 id: `Новый ресурс #${randNum}`,
-                description: "",
-                url: "",
                 isRoot: false,
                 isFolder: false,
                 x: node.x,
@@ -56,7 +68,6 @@ const Node = ({node, data, setData, setSelected}) => {
         const randNum = Math.floor(Math.random() * 10000) + 1;
         setData({nodes: [...data.nodes, {
                 id: `Новая папка #${randNum}`,
-                description: "",
                 isRoot: false,
                 isFolder: true,
                 x: node.x,
@@ -90,16 +101,19 @@ const Node = ({node, data, setData, setSelected}) => {
     }
 
     return (
-        <div style={{height: "100%"}}>
-            <Button
-                aria-describedby={node.id}
-                onClick={() => setSelected(node)}
-                onContextMenu={handleClick}
-                variant={variant} startIcon={icon}
-                sx={{height: "100%", backgroundColor: background}}
-            >
-                {node.id}
-            </Button>
+
+        <NodeDiv>
+                <NodeBtn
+                    aria-describedby={node.id}
+                    onClick={() => setSelected(node)}
+                    onContextMenu={handleClick}
+                    variant={variant}
+                    color = 'inherit'
+                >
+                    {icon}
+                </NodeBtn>
+
+
             <Menu
                 id={node.id}
                 anchorEl={anchorEl}
@@ -126,7 +140,8 @@ const Node = ({node, data, setData, setSelected}) => {
                     <ListItemText primary="Удалить ветку" onClick={handleDelete}/>
                 </MenuItem>
             </Menu>
-        </div>
+        </NodeDiv>
+
     );
 };
 

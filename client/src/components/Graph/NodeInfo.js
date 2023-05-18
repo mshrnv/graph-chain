@@ -1,8 +1,33 @@
 import React from 'react';
-import {FormControl, FormLabel, Input} from "@mui/joy";
+import {FormControl, FormLabel, Input, TextField, Typography} from "@mui/material";
+import {styled} from "@mui/material/styles";
+import Button from '@mui/material/Button';
+const DescNode = styled('div')(({theme})=>({
+    width: '100%',
+    marginTop: theme.spacing(1),
 
+}))
+
+const NodeBox = styled('div')(({theme})=>({
+    border: "1px solid grey",
+    borderRadius: theme.shape.borderRadius.fields,
+    marginBottom: theme.spacing(1)
+
+}))
+
+const InfoFormLabel = styled(FormLabel)(({theme})=>({
+    margin: theme.spacing(1,1),
+    width: '100%'
+}))
+const InfoInput = styled(Input)(({theme})=>({
+    margin: theme.spacing(1),
+    width: '70%'
+}))
+const AlertMessage = styled(Typography)(({theme})=>({
+    margin: theme.spacing(1, 1),
+
+}))
 const NodeInfo = ({data, setData, selected, setSelected}) => {
-
     const handleNodeName = (oldName, newName) => {
         const newNodes = data.nodes.map((item) => {
             if (item.id === oldName) {
@@ -54,42 +79,41 @@ const NodeInfo = ({data, setData, selected, setSelected}) => {
         })
         setSelected({...selected, url});
     }
-
-
     const renderNodeInfo = (node) => {
         if (node.isFolder) {
             return (
-                <FormControl>
-                    <FormLabel>Название</FormLabel>
+                <FormControl sx={{width: '100%'}}>
+                    <InfoFormLabel>Название</InfoFormLabel>
                     <Input value={selected.id} onChange={(e) => handleNodeName(selected.id, e.target.value)} />
                 </FormControl>
             )
         }
 
         return (
-            <FormControl>
-                <FormLabel>Название</FormLabel>
-                <Input value={selected.id} onChange={(e) => handleNodeName(selected.id, e.target.value)} />
+            <FormControl sx={{width: '100%'}}>
+                <InfoFormLabel>Название</InfoFormLabel>
+                <InfoInput value={selected.id} onChange={(e) => handleNodeName(selected.id, e.target.value)} />
                 <hr/>
-                <FormLabel>Описание</FormLabel>
-                <Input value={selected.description} onChange={(e) => handleNodeDescription(selected.id, e.target.value)} />
+                <InfoFormLabel>Описание</InfoFormLabel>
+                <InfoInput value={selected.description} onChange={(e) => handleNodeDescription(selected.id, e.target.value)} />
                 <hr/>
-                <FormLabel>Ссылка на ресурс</FormLabel>
-                <Input value={selected.url} onChange={(e) => handleNodeUrl(selected.id, e.target.value)} />
+                <InfoFormLabel>Ссылка на ресурс</InfoFormLabel>
+                <InfoInput value={selected.url} onChange={(e) => handleNodeUrl(selected.id, e.target.value)} />
             </FormControl>
         )
     }
 
     return (
-        <div className="knowledge-graph-info">
-            <div id='graph' style={{border: "1px solid black", marginTop: 20, padding: 8}}>
+        <NodeBox>
+            <DescNode>
                 {selected ? (
                     renderNodeInfo(selected)
                 ) : (
-                    <p>Нода не выбрана</p>
+                    <AlertMessage>Нода не выбрана</AlertMessage>
                 )}
-            </div>
-        </div>
+            </DescNode>
+
+        </NodeBox>
     );
 };
 

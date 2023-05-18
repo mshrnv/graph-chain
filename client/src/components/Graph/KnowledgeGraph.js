@@ -1,9 +1,15 @@
 import React from "react";
 import {Graph} from 'react-d3-graph';
-import GraphConfig from "./GraphConfig";
+import GraphConfig from "../../utils/GraphConfig";
 import Node from "./Node";
+import {styled} from "@mui/material/styles";
 
-
+const DivKGraph = styled('div')(({theme})=>({
+    width: '100%',
+    backgroundColor: theme.palette.action.disabled,
+    margin: theme.spacing(2, 0),
+    borderRadius: '5px'
+}))
 function KnowledgeGraph({data, setData, setSelected}) {
 
     // the graph configuration
@@ -23,8 +29,8 @@ function KnowledgeGraph({data, setData, setSelected}) {
 
 
     return (
-        <div className="knowledge-graph">
-            <div id='graph' style={{border: "1px solid black"}}>
+        <div className="knowledge-graph" >
+            <DivKGraph id='graph'>
                 <Graph
                     id="graph-id"
                     data={data}
@@ -32,7 +38,7 @@ function KnowledgeGraph({data, setData, setSelected}) {
                     onNodePositionChange={onNodeMove}
                     onClickGraph={() => setSelected(false)}
                 />
-            </div>
+            </DivKGraph>
         </div>
     );
 }

@@ -2,8 +2,6 @@ const DataExample = {
     nodes: [
         {
             id: 'Как заботать Python?',
-            description: "",
-            url: "",
             isRoot: true,
             isFolder: true,
             x: 500,
@@ -11,7 +9,6 @@ const DataExample = {
         },
         {
             id: 'Основы Python',
-            description: "",
             isRoot: false,
             isFolder: true,
             x: 250,
@@ -19,7 +16,6 @@ const DataExample = {
         },
         {
             id: 'ООП в Python',
-            description: "",
             isRoot: false,
             isFolder: true,
             x: 500,
@@ -27,7 +23,6 @@ const DataExample = {
         },
         {
             id: 'Выбор и изучение фреймворка',
-            description: "",
             isRoot: false,
             isFolder: true,
             x: 750,
@@ -35,8 +30,6 @@ const DataExample = {
         },
         {
             id: 'Циклы в Python',
-            description: "",
-            url: "",
             isRoot: false,
             isFolder: false,
             x: 75,
@@ -44,8 +37,6 @@ const DataExample = {
         },
         {
             id: 'Условные операторы',
-            description: "",
-            url: "",
             isRoot: false,
             isFolder: false,
             x: 250,
@@ -53,8 +44,6 @@ const DataExample = {
         },
         {
             id: 'Функции в Python',
-            description: "",
-            url: "",
             isRoot: false,
             isFolder: false,
             x: 425,

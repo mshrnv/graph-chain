@@ -9,7 +9,6 @@ const GraphConfig = {
     "highlightDegree": 1,
     "highlightOpacity": 1,
     "linkHighlightBehavior": true,
-    "initialZoom": 0.8,
     "maxZoom": 8,
     "minZoom": 0.1,
     "nodeHighlightBehavior": true,
@@ -37,10 +36,10 @@ const GraphConfig = {
         "labelProperty": "name",
         "mouseCursor": "pointer",
         "opacity": 1,
-        "renderLabel": false,
+        "renderLabel": true,
         "size": {
-            "width": 1600,
-            "height": 800
+            "width": 400,
+            "height": 400
         },
         "strokeColor": "none",
         "strokeWidth": 2,
