@@ -4,16 +4,18 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import {useContext, useState} from "react";
+import {useContext} from "react";
 import {styled} from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import PaidIcon from '@mui/icons-material/Paid';
 import {AppContext} from "./AppContext";
+
 const BarTypography = styled(Typography)(({theme})=>({
     marginLeft: 'auto',
     marginRight: theme.spacing(1),
     color: theme.palette.nav.text
 }))
+
 const Bar = styled(AppBar)(({theme})=>({
     backgroundColor: theme.palette.nav.bgColor
 }))

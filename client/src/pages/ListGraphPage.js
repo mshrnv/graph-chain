@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, FormControl, Grid, Input} from "@mui/material";
+import {FormControl, Grid, Input} from "@mui/material";
 import GraphCard from "../components/UI/GraphCard";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -9,6 +9,8 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import CheckIcon from '@mui/icons-material/Check';
 import IconButton from "@mui/material/IconButton";
+
+
 const graphs = [
     {
         "name": "Изучаем питон",
@@ -40,6 +42,7 @@ const graphs = [
 const CreateGraphButton = styled(Button)(({theme})=>({
     margin: theme.spacing(2, 0)
 }))
+
 const CreateBox = styled(Box)(({theme})=> ({
     margin: theme.spacing(0, 1),
 

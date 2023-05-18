@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -19,12 +18,14 @@ const NodeBtn = styled(IconButton)(({theme}) => ({
     width: '20px',
     height: '20px',
 }))
+
 const NodeDiv = styled('div')(({theme})=>({
     height: '100%',
     justifyContent: 'center',
     display: 'flex',
     alignItems: 'center'
 }))
+
 const Node = ({node, data, setData, setSelected}) => {
     // Menu configuration
     const [anchorEl, setAnchorEl] = React.useState(null);

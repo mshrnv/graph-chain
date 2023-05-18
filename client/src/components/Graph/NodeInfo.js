@@ -1,7 +1,7 @@
 import React from 'react';
-import {FormControl, FormLabel, Input, TextField, Typography} from "@mui/material";
+import {FormControl, FormLabel, Input, Typography} from "@mui/material";
 import {styled} from "@mui/material/styles";
-import Button from '@mui/material/Button';
+
 const DescNode = styled('div')(({theme})=>({
     width: '100%',
     marginTop: theme.spacing(1),
@@ -19,14 +19,17 @@ const InfoFormLabel = styled(FormLabel)(({theme})=>({
     margin: theme.spacing(1,1),
     width: '100%'
 }))
+
 const InfoInput = styled(Input)(({theme})=>({
     margin: theme.spacing(1),
     width: '70%'
 }))
+
 const AlertMessage = styled(Typography)(({theme})=>({
     margin: theme.spacing(1, 1),
 
 }))
+
 const NodeInfo = ({data, setData, selected, setSelected}) => {
     const handleNodeName = (oldName, newName) => {
         const newNodes = data.nodes.map((item) => {
