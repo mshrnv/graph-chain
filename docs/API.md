@@ -6,7 +6,7 @@ ___
 
 ## Get one graph
 
-<p>Get graph data by graph name</p>
+<p>Get graph data by graph _id</p>
 
 ```
 GET /graph
@@ -16,7 +16,7 @@ GET /graph
 
 | Name | Type       | Description       |
 |------|------------|-------------------|
-| name | `String` | <p>Graph name</p> |
+| graph_id | `String` | <p>Graph _id from Mongo</p> |
 
 ## Get all graphs
 
