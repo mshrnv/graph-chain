@@ -16,8 +16,8 @@ class GraphService {
     }
 
     // Returns graph data by graph name
-    static async getByName(name) {
-        const graph = await Graph.findOne({name})
+    static async getOneGraph(graphId) {
+        const graph = await Graph.findById(graphId)
         return graph
     }
 

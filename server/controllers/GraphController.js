@@ -3,15 +3,15 @@ const GraphService = require('../services/GraphService')
 class GraphController {
     async getOne(req, res) {
         try {
-            const {name} = req.query
+            const {graph_id} = req.query
 
-            if (!name) {
+            if (!graph_id) {
                 res.status(404).json({
                     message: "Не передано название графа"
                 })
             }
 
-            const graph = await GraphService.getByName(name)
+            const graph = await GraphService.getOneGraph(graph_id)
             res.json(graph)
         } catch (e) {
             res.status(404).json({

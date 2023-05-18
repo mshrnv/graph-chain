@@ -1,6 +1,11 @@
 import React from 'react';
 import {FormControl, FormLabel, Input, Typography} from "@mui/material";
 import {styled} from "@mui/material/styles";
+import Button from "@mui/material/Button";
+import GraphService from "../../api/GraphService";
+import {toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const DescNode = styled('div')(({theme})=>({
     width: '100%',
@@ -30,7 +35,7 @@ const AlertMessage = styled(Typography)(({theme})=>({
 
 }))
 
-const NodeInfo = ({data, setData, selected, setSelected}) => {
+const NodeInfo = ({data, setData, selected, setSelected, graphId}) => {
     const handleNodeName = (oldName, newName) => {
         const newNodes = data.nodes.map((item) => {
             if (item.id === oldName) {
@@ -82,6 +87,15 @@ const NodeInfo = ({data, setData, selected, setSelected}) => {
         })
         setSelected({...selected, url});
     }
+
+    const updateGraph = async () => {
+        GraphService.updateGraphData(graphId, data)
+            .then(setData)
+        // toast("🔥Graph saved!");
+        // setData(newData)
+        toast("🔥Graph saved!");
+    }
+
     const renderNodeInfo = (node) => {
         if (node.isFolder) {
             return (
@@ -96,10 +110,8 @@ const NodeInfo = ({data, setData, selected, setSelected}) => {
             <FormControl sx={{width: '100%'}}>
                 <InfoFormLabel>Название</InfoFormLabel>
                 <InfoInput value={selected.id} onChange={(e) => handleNodeName(selected.id, e.target.value)} />
-                <hr/>
                 <InfoFormLabel>Описание</InfoFormLabel>
                 <InfoInput value={selected.description} onChange={(e) => handleNodeDescription(selected.id, e.target.value)} />
-                <hr/>
                 <InfoFormLabel>Ссылка на ресурс</InfoFormLabel>
                 <InfoInput value={selected.url} onChange={(e) => handleNodeUrl(selected.id, e.target.value)} />
             </FormControl>
@@ -115,7 +127,10 @@ const NodeInfo = ({data, setData, selected, setSelected}) => {
                     <AlertMessage>Нода не выбрана</AlertMessage>
                 )}
             </DescNode>
-
+            <ToastContainer />
+            <Button onClick={updateGraph}>
+                Save changes 📁
+            </Button>
         </NodeBox>
     );
 };
