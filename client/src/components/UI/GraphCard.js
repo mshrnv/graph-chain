@@ -6,6 +6,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {styled} from "@mui/material/styles";
 import {Grid} from "@mui/material";
+import {useEffect, useState} from "react";
+import LikeService from "../../api/LikeService";
 
 const CardGraph = styled(Card)(({theme})=> ({
     margin: theme.spacing(2, 1),
@@ -13,6 +15,17 @@ const CardGraph = styled(Card)(({theme})=> ({
 }))
 
 export default function GraphCard(props) {
+
+    const [likesCount, setLikesCount] = useState(0);
+    const [hasAccess, setHasAccess] = useState(true);
+
+    useEffect(() => {
+        const fetchLikes = async () => {
+            const data = await LikeService.getGraphLikes(props.item._id);
+            setLikesCount(data.count);
+        }
+        fetchLikes();
+    }, [])
 
     return (
         <Grid item xs={3} md={3}>
@@ -25,11 +38,21 @@ export default function GraphCard(props) {
                         {props.item.desc}
                     </Typography>
                     <Typography  color="text.secondary" sx={{marginTop: 2}}>
-                        {props.item.author}
+                        {props.item.owner}
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small" sx={{marginLeft:'auto', verticalAlign: 'bottom'}}>Buy View</Button>
+                    {/* TODO: Pretty view */}
+                    <div>
+                        {likesCount}️ ❤️
+                    </div>
+                    {
+                        hasAccess ? (
+                            <Button size="small" sx={{marginLeft:'auto', verticalAlign: 'bottom', color: "green"}}>View</Button>
+                        ) : (
+                            <Button size="small" sx={{marginLeft:'auto', verticalAlign: 'bottom'}}>Buy access</Button>
+                        )
+                    }
                 </CardActions>
             </CardGraph>
         </Grid>

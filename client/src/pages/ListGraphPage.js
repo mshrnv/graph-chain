@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {FormControl, Grid, Input} from "@mui/material";
 import GraphCard from "../components/UI/GraphCard";
 import Box from "@mui/material/Box";
@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import CheckIcon from '@mui/icons-material/Check';
 import IconButton from "@mui/material/IconButton";
+import GraphService from "../api/GraphService";
 
 
 const graphs = [
@@ -67,6 +68,16 @@ const ListGraphPage = () => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const [graphs, setGraphs] = useState([]);
+
+    useEffect(() => {
+        const fetchGraphs = async () => {
+            const data = await GraphService.getAllGraphs();
+            setGraphs(data);
+        }
+        fetchGraphs();
+    }, [])
 
     return (
         <Box sx={{width: '60%', margin: 'auto'}}>
