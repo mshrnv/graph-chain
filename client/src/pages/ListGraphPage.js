@@ -12,34 +12,6 @@ import IconButton from "@mui/material/IconButton";
 import GraphService from "../api/GraphService";
 
 
-const graphs = [
-    {
-        "name": "Изучаем питон",
-        "desc": "Это статья про питон",
-        "author": "Иван иванов"
-    },
-    {
-        "name": "Изучаем js",
-        "desc": "Это статья про js",
-        "author": "Иван иванов"
-    },
-    {
-        "name": "Изучаем rubydsfds afdsafdas",
-        "desc": "Это статья про питон",
-        "author": "Иван иванов"
-    },
-    {
-        "name": "Изучаем php",
-        "desc": "Это статья про питон",
-        "author": "Иван иванов"
-    },
-    {
-        "name": "Изучаем c++",
-        "desc": "Это статья про питон fdsafdslafdsafjf daksjfklsjakjlk",
-        "author": "Иван иванов"
-    },
-]
-
 const CreateGraphButton = styled(Button)(({theme})=>({
     margin: theme.spacing(2, 0)
 }))
@@ -60,10 +32,6 @@ const style = {
     p: 4,
 };
 
-function InputButton(props) {
-    return null;
-}
-
 const ListGraphPage = () => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -80,7 +48,7 @@ const ListGraphPage = () => {
     }, [])
 
     return (
-        <Box sx={{width: '60%', margin: 'auto'}}>
+        <Box sx={{width: '80%', margin: 'auto'}}>
             <CreateBox>
                 <CreateGraphButton onClick={handleOpen}>
                     <HubIcon sx={{marginRight: 1}}/>
@@ -104,7 +72,7 @@ const ListGraphPage = () => {
                     </FormControl>
                 </Modal>
             </CreateBox>
-            <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 2, md: 3}}>
+            <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 1, md: 1}}>
                 {graphs.map(item =>
                     <GraphCard key={item.name} item={item}></GraphCard>
                 )}
