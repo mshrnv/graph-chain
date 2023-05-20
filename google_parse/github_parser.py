@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 
-
 def parse_github_post(url):
     headers = {
         'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36'
@@ -9,7 +8,8 @@ def parse_github_post(url):
 
     try:
         response = requests.get(url, headers=headers)
-        response.raise_for_status()
+        if not response.ok:
+            return None
     except requests.exceptions.RequestException:
         return None
 
@@ -28,6 +28,7 @@ def parse_github_info(html_str, url):
         "url": str(url),
         "languages": None
     }
+
     try:
         name = soup.find('p', class_='f4 my-3').text.strip()
 
@@ -37,28 +38,20 @@ def parse_github_info(html_str, url):
         watching = soup.find('a', href='/' + path + '/watchers').strong.text.strip()
 
         languages = []
-        language_items = soup.find_all('a', href=lambda href: href and '/search?l=' in href)
-        for language_item in language_items:
-            language = language_item.text.strip()
-            languages.append(language.split('\n')[0])
+        for language_item in soup.find_all('a', href=lambda href: href and '/search?l=' in href):
+            language = language_item.text.strip().split('\n')[0]
+            languages.append(language)
 
-        tags = []
-        tag_items = soup.find_all('a', class_='topic-tag')
-        for tag_item in tag_items:
-            tags.append(tag_item.text.strip())
+        tags = [tag_item.text.strip() for tag_item in soup.find_all('a', class_='topic-tag')]
 
         github_info = {
             "name": name,
             "stars": stars,
             "url": str(url),
-            "languages": tuple(languages)
+            "languages": languages
         }
-
 
     except:
         return None
 
-    if github_info['name'] is not None:
-        return github_info
-    else:
-        return None
+    return github_info if github_info['name'] is not None else None

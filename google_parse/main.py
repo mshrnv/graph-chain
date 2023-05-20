@@ -1,7 +1,7 @@
 import json
 import re
 import time
-
+from fastapi import FastAPI
 import requests
 from bs4 import BeautifulSoup
 
@@ -43,7 +43,7 @@ def generate_search_url(query_string):
     return str(base_url + encoded_query)
 
 
-def share_ssilki(query_string):
+def share_links(query_string):
     result_arr = []
 
     sites = [
@@ -64,14 +64,20 @@ def share_ssilki(query_string):
     return result_arr
 
 
-
 def main_func(query):
     output_list = []
-    links = share_ssilki(query)
-    output_list.append(list(filter(None,map(parse_vc_post, links[0]))))
-    output_list.append(list(filter(None,map(parse_habr_posts, links[1]))))
-    output_list.append(list(filter(None,map(parse_github_post, links[2]))))
-    output_list.append(list(filter(None,map(parse_cyberleninka_post, links[3]))))
-    return json.dumps(output_list,ensure_ascii=False)
+    links = share_links(query)
+    output_list.append(list(filter(None, map(parse_vc_post, links[0]))))
+    output_list.append(list(filter(None, map(parse_habr_posts, links[1]))))
+    output_list.append(list(filter(None, map(parse_github_post, links[2]))))
+    output_list.append(list(filter(None, map(parse_cyberleninka_post, links[3]))))
+    return json.dumps(output_list, ensure_ascii=False)
 
-print(main_func('план изучения python самостоятельно'))
+print(main_func('изучение основ c++'))
+# app = FastAPI()
+#
+#
+# @app.get("/process_query/{query}")
+# def process_query(query: str):
+#     output_list = main_func(query)
+#     return json.loads(output_list)
