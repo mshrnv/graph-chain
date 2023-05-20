@@ -19,6 +19,25 @@ class GraphService {
 
         return graph.data
     }
+
+    static async createGraph(graphName, userAccount) {
+        const graph = await axios.post('http://localhost:5000/graph', {
+            name: graphName,
+            data: JSON.stringify({
+                nodes: [{
+                    id: graphName,
+                    isRoot: true,
+                    isFolder: true,
+                    x: 500,
+                    y: 50
+                }],
+                links: []
+            }),
+            owner: userAccount
+        });
+
+        return graph.data
+    }
 }
 
 export default GraphService;

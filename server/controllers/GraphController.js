@@ -35,16 +35,16 @@ class GraphController {
 
     async newGraph(req, res) {
         try {
-            const {name, data} = req.body
+            const {name, data, owner} = req.body
 
-            if (!name || !data) {
+            if (!name || !data || !owner) {
                 res.status(404).json({
                     message: "Не передано название или содержимое графа"
                 })
             }
 
-            const newGraph = await GraphService.newGraph(name, data);
-            return newGraph
+            const newGraph = await GraphService.newGraph(name, data, owner);
+            res.json(newGraph)
         } catch (e) {
             res.status(404).json({
                 jsMessage: e,
@@ -63,7 +63,7 @@ class GraphController {
         }
 
         const updatedGraph = await GraphService.updateGraph(_id, data);
-        return updatedGraph
+        res.json(updatedGraph)
     }
 }
 

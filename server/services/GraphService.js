@@ -8,8 +8,8 @@ class GraphService {
     }
 
     // Creates new graph
-    static async newGraph(name, data) {
-        const doc = new Graph({name, data});
+    static async newGraph(name, data, owner) {
+        const doc = new Graph({name, data, owner});
         await doc.save();
 
         return doc;

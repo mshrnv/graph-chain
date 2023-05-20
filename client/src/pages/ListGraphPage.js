@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {FormControl, Grid, Input} from "@mui/material";
 import GraphCard from "../components/UI/GraphCard";
 import Box from "@mui/material/Box";
@@ -10,13 +10,16 @@ import Modal from "@mui/material/Modal";
 import CheckIcon from '@mui/icons-material/Check';
 import IconButton from "@mui/material/IconButton";
 import GraphService from "../api/GraphService";
+import {AppContext} from "../components/AppContext";
+import {CONTRACT_ABI, CONTRACT_ADDRESS} from "../ContractConfig";
+import Web3 from "web3";
 
 
-const CreateGraphButton = styled(Button)(({theme})=>({
+const CreateGraphButton = styled(Button)(({theme}) => ({
     margin: theme.spacing(2, 0)
 }))
 
-const CreateBox = styled(Box)(({theme})=> ({
+const CreateBox = styled(Box)(({theme}) => ({
     margin: theme.spacing(0, 1),
 
 }))
@@ -33,18 +36,36 @@ const style = {
 };
 
 const ListGraphPage = () => {
+    const [user, setUser] = useContext(AppContext)
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const [graphs, setGraphs] = useState([]);
 
+    const [graphName, setGraphName] = useState("");
+
+    const createNewGraph = async () => {
+        // Mongo
+        const data = await GraphService.createGraph(graphName, user)
+
+        // Blockchain
+        const web3 = new Web3(Web3.givenProvider || 'http://localhost:7545');
+        const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+        await contract.methods.newGraph(data._id).send({from: user})
+
+        // Update
+        await updateGraphs()
+        handleClose()
+    }
+
+    const updateGraphs = async () => {
+        const data = await GraphService.getAllGraphs();
+        setGraphs(data);
+    }
+
     useEffect(() => {
-        const fetchGraphs = async () => {
-            const data = await GraphService.getAllGraphs();
-            setGraphs(data);
-        }
-        fetchGraphs();
+        updateGraphs();
     }, [])
 
     return (
@@ -63,8 +84,8 @@ const ListGraphPage = () => {
                     <FormControl sx={style}>
                         <Typography>Введите название графа</Typography>
                         <div>
-                            <Input></Input>
-                            <IconButton onClick={handleClose} sx={{marginLeft: 2}}>
+                            <Input value={graphName} onChange={(e) => setGraphName(e.target.value)}></Input>
+                            <IconButton onClick={createNewGraph} sx={{marginLeft: 2}}>
                                 <CheckIcon/>
                             </IconButton>
                         </div>
