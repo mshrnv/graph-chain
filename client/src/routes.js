@@ -3,6 +3,7 @@ import GraphPage from "./pages/GraphPage";
 import ListGraphPage from "./pages/ListGraphPage";
 import ProfilePage from "./pages/ProfilePage";
 import StartPage from "./pages/StartPage";
+import {Navigate} from "react-router-dom";
 export const authRoutes = [
     {
         path: LIST_GRAPH_PAGE,
@@ -15,6 +16,10 @@ export const authRoutes = [
     {
         path: GRAPH_PAGE,
         component: <GraphPage/>
+    },
+    {
+        path: '*',
+        component: <Navigate to='/'/>
     }
 ]
 export const publicRoutes = [

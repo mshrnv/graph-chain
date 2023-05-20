@@ -1,16 +1,13 @@
-import React, {createContext} from "react";
+import React, {createContext, useState} from "react";
 
 const AppContext = createContext()
 
-const context = {
-    user: {
-        id: 'v'
-    }
-}
 
 const AppContextProvider = (props) => {
+    const [user, setUser] = useState(null)
+
     return (
-        <AppContext.Provider value={context}>
+        <AppContext.Provider value={[user, setUser]}>
             {props.children}
         </AppContext.Provider>
     )

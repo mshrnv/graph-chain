@@ -4,11 +4,11 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import {styled} from "@mui/material/styles";
-import IconButton from "@mui/material/IconButton";
-import PaidIcon from '@mui/icons-material/Paid';
 import {AppContext} from "./AppContext";
+import {ReactComponent as EthIcon} from "../assets/ethereum.svg"
+import Web3 from "web3";
 
 const BarTypography = styled(Typography)(({theme})=>({
     marginLeft: 'auto',
@@ -21,7 +21,25 @@ const Bar = styled(AppBar)(({theme})=>({
 }))
 
 export default function Nav() {
-    const {user} = useContext(AppContext)
+    const [user, setUser] = useContext(AppContext)
+    const [balance, setBalance] = useState(0)
+
+    const web3 = new Web3(Web3.givenProvider || 'http://localhost:7545');
+
+    useEffect(() => {
+        if (!user) {
+            return;
+        }
+
+        web3.eth.getBalance(user, function (err, result) {
+            if (err) {
+                console.log(err)
+            } else {
+                setBalance(web3.utils.fromWei(result, "ether"));
+            }
+        })
+    }, [user])
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Bar position="static">
@@ -30,16 +48,14 @@ export default function Nav() {
                         К графам
                     </Button>
 
-                    {user.id ?
+                    {user ?
                         <Box sx={{display: { md: 'flex', marginLeft: 'auto', alignItems: 'center'}}}>
-                            <IconButton sx={{marginRight: 1}} >
-                                <PaidIcon size='small'/>
-                            </IconButton>
-                            <BarTypography >4.8</BarTypography>
-                            <BarTypography>Ваш логин</BarTypography>
+                            <BarTypography>{balance}</BarTypography>
+                            <EthIcon width={20} />
+                            <BarTypography sx={{marginLeft: '30px'}}>{user}</BarTypography>
                         </Box>
                         :
-                        <Button  sx={{marginLeft: 'auto'}}>Войти</Button>
+                        <></>
                     }
 
                 </Toolbar>
