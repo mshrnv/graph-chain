@@ -20,7 +20,7 @@ def parse_cyberleninka_post(url: str) -> Optional[Dict[str, Union[str, int]]]:
 
     post_dict = {
         'title': None,
-        'title_href': url,
+        'url': url,
         'votes': 0,
         'author': None,
     }

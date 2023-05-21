@@ -20,6 +20,12 @@ class GraphService {
         return graph.data
     }
 
+    static async getRecommendations(graphName) {
+        const recs = await axios.get('http://127.0.0.1:8000/?q=' + graphName);
+        console.log(recs.data)
+        return JSON.parse(recs.data)
+    }
+
     static async createGraph(graphName, userAccount) {
         const graph = await axios.post('http://localhost:5000/graph', {
             name: graphName,

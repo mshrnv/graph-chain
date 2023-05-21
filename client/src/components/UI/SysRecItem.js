@@ -3,6 +3,7 @@ import {styled} from "@mui/material/styles";
 import {IconButton, Typography} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import RatingRecItem from "./RatingRecItem";
+import parseRecItem from "../../utils/parseRecItem";
 
 const Item = styled('div')(({theme})=> ({
     marginTop: theme.spacing(1),
@@ -17,27 +18,11 @@ const Item = styled('div')(({theme})=> ({
 const NameItem = styled(Typography)(({theme})=>({
 
 }))
-const SysRecItem = () => {
-
-    const rating = [
-        {
-            rate: 90,
-            resource: 'github'
-        },
-        {
-            rate: 100,
-            resource: 'habr'
-        },
-        {
-            rate: 21,
-            resource: 'youtube'
-        }
-    ]
+const SysRecItem = ({rec}) => {
     return (
         <Item>
-
-            <RatingRecItem props={rating[1]}></RatingRecItem>
-            <NameItem>Это статья про питонг</NameItem>
+            <RatingRecItem props={parseRecItem(rec)}></RatingRecItem>
+            <NameItem>{rec.title}</NameItem>
             <IconButton sx={{marginLeft: 'auto'}}>
                 <AddIcon/>
             </IconButton>

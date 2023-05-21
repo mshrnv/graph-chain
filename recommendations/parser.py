@@ -67,13 +67,13 @@ def share_links(query_string):
 def main_func(query):
     output_list = []
     links = share_links(query)
-    output_list.append(list(filter(None, map(parse_vc_post, links[0]))))
-    output_list.append(list(filter(None, map(parse_habr_posts, links[1]))))
-    output_list.append(list(filter(None, map(parse_github_post, links[2]))))
-    output_list.append(list(filter(None, map(parse_cyberleninka_post, links[3]))))
+    output_list.extend(list(filter(None, map(parse_vc_post, links[0]))))
+    output_list.extend(list(filter(None, map(parse_habr_posts, links[1]))))
+    output_list.extend(list(filter(None, map(parse_github_post, links[2]))))
+    output_list.extend(list(filter(None, map(parse_cyberleninka_post, links[3]))))
     return json.dumps(output_list, ensure_ascii=False)
 
-print(main_func('изучение основ c++'))
+# print(main_func('изучение основ c++'))
 # app = FastAPI()
 #
 #

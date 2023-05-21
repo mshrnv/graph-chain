@@ -22,7 +22,7 @@ def parse_vc_post(url: str) -> Optional[Dict[str, Union[str, int]]]:
         'title': None,
         'author': None,
         'author_href': None,
-        'post_href': url,
+        'url': url,
         'likes': 0
     }
 

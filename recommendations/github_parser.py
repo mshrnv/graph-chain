@@ -23,14 +23,14 @@ def parse_github_info(html_str, url):
     soup = BeautifulSoup(html_str, 'html.parser')
 
     github_info = {
-        "name": None,
+        "title": None,
         "stars": 0,
         "url": str(url),
         "languages": None
     }
 
     try:
-        name = soup.find('p', class_='f4 my-3').text.strip()
+        title = soup.find('p', class_='f4 my-3').text.strip()
 
         path = url.split('//')[-1].split('/', 1)[-1]
         stars = soup.find('a', href='/' + path + '/stargazers').strong.text.strip()
@@ -45,7 +45,7 @@ def parse_github_info(html_str, url):
         tags = [tag_item.text.strip() for tag_item in soup.find_all('a', class_='topic-tag')]
 
         github_info = {
-            "name": name,
+            "title": title,
             "stars": stars,
             "url": str(url),
             "languages": languages
@@ -54,4 +54,4 @@ def parse_github_info(html_str, url):
     except:
         return None
 
-    return github_info if github_info['name'] is not None else None
+    return github_info if github_info['title'] is not None else None

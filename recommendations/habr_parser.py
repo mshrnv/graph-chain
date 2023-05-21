@@ -16,7 +16,7 @@ def parse_habr_posts(url: str) -> Optional[Dict[str, Union[str, int]]]:
         'author': None,
         'author_href': None,
         'title': None,
-        'title_href': None,
+        'url': None,
         'votes': 0
     }
     try:
@@ -27,7 +27,7 @@ def parse_habr_posts(url: str) -> Optional[Dict[str, Union[str, int]]]:
         title_elem = soup.find('h1', {'class': 'tm-title tm-title_h1'})
 
         post_dict['title'] = extract_title(title_elem)
-        post_dict['title_href'] = url
+        post_dict['url'] = url
 
         votes_elem = soup.find('div', {'class': 'tm-votes-meter'})
         votes_data = parse_votes(votes_elem)
