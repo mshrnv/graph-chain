@@ -22,6 +22,7 @@ const GraphBox = ({graphId, owner, data, setData}) => {
                 selected={selected}
                 setSelected={setSelected}
                 graphId={graphId}
+                owner={owner}
             />
         </GraphDiv>
     );

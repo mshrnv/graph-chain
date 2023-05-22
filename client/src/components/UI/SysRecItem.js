@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {styled} from "@mui/material/styles";
 import {IconButton, Typography} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import {AppContext} from "../AppContext";
 
 const Item = styled('div')(({theme}) => ({
     marginTop: theme.spacing(1),
@@ -35,8 +36,8 @@ const style = {
     p: 4,
 };
 
-const SysRecItem = ({rec, data, setData}) => {
-
+const SysRecItem = ({rec, data, setData, owner}) => {
+    const [user, setUser] = useContext(AppContext)
     const [open, setOpen] = React.useState(false);
     const [selected, setSelected] = React.useState(null);
     const handleOpen = () => setOpen(true);
@@ -77,39 +78,47 @@ const SysRecItem = ({rec, data, setData}) => {
     return (
         <Item>
             <RatingRecItem props={parseRecItem(rec)}></RatingRecItem>
-            <NameItem>{rec.title}</NameItem>
-            <Box>
-                <IconButton onClick={handleOpen} sx={{marginLeft: 'auto'}}>
-                    <AddIcon/>
-                </IconButton>
-                <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <FormControl sx={style}>
-                        <Typography sx={{marginBottom: 2}}>Добавить ресурс "{rec.title}" к ноде:</Typography>
-                        <Select
-                            labelId="demo-simple-select-standard-label"
-                            id="demo-simple-select-standard"
-                            onChange={handleChange}
+            <a href={rec.url} style={{color: "white", textDecoration: "none"}}>
+                <NameItem>{rec.title}</NameItem>
+            </a>
+            {
+                user === owner ? (
+                    <Box>
+                        <IconButton onClick={handleOpen} sx={{marginLeft: 'auto'}}>
+                            <AddIcon/>
+                        </IconButton>
+                        <Modal
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
                         >
-                            {data.nodes.map((node) =>
-                                <MenuItem key={node.id} value={node.id}>{node.id}</MenuItem>
-                            )}
-                        </Select>
-                        <div style={{marginTop: 20}}>
-                            <Button onClick={addRecToGraph}>
-                                Да
-                            </Button>
-                            <Button onClick={handleClose}>
-                                Отмена
-                            </Button>
-                        </div>
-                    </FormControl>
-                </Modal>
-            </Box>
+                            <FormControl sx={style}>
+                                <Typography sx={{marginBottom: 2}}>Добавить ресурс "{rec.title}" к ноде:</Typography>
+                                <Select
+                                    labelId="demo-simple-select-standard-label"
+                                    id="demo-simple-select-standard"
+                                    onChange={handleChange}
+                                >
+                                    {data.nodes.map((node) =>
+                                        <MenuItem key={node.id} value={node.id}>{node.id}</MenuItem>
+                                    )}
+                                </Select>
+                                <div style={{marginTop: 20}}>
+                                    <Button onClick={addRecToGraph}>
+                                        Да
+                                    </Button>
+                                    <Button onClick={handleClose}>
+                                        Отмена
+                                    </Button>
+                                </div>
+                            </FormControl>
+                        </Modal>
+                    </Box>
+                ) : (
+                    <></>
+                )
+            }
         </Item>
     );
 };

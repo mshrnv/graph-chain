@@ -38,6 +38,7 @@ const GraphPage = () => {
                     name={graphName}
                     data={data}
                     setData={setData}
+                    owner={owner}
                 />
             </Grid>
         </Grid>

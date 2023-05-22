@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {FormControl, FormLabel, Input, Typography} from "@mui/material";
 import {styled} from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import GraphService from "../../api/GraphService";
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import {AppContext} from "../AppContext";
 
 
 const DescNode = styled('div')(({theme})=>({
@@ -35,7 +36,8 @@ const AlertMessage = styled(Typography)(({theme})=>({
 
 }))
 
-const NodeInfo = ({data, setData, selected, setSelected, graphId}) => {
+const NodeInfo = ({data, setData, selected, setSelected, graphId, owner}) => {
+    const [user, setUser] = useContext(AppContext)
     const handleNodeName = (oldName, newName) => {
         const newNodes = data.nodes.map((item) => {
             if (item.id === oldName) {
@@ -96,6 +98,23 @@ const NodeInfo = ({data, setData, selected, setSelected, graphId}) => {
     }
 
     const renderNodeInfo = (node) => {
+
+        if (owner !== user) {
+            if (node.isFolder) {
+                return (
+                    <h6>{selected.id}</h6>
+                )
+            }
+
+            return (
+                <div>
+                    <h6>{selected.id}</h6>
+                    <h6>{selected.description}</h6>
+                    <h6>{selected.url}</h6>
+                </div>
+            )
+        }
+
         if (node.isFolder) {
             return (
                 <FormControl sx={{width: '100%'}}>
@@ -127,9 +146,16 @@ const NodeInfo = ({data, setData, selected, setSelected, graphId}) => {
                 )}
             </DescNode>
             <ToastContainer />
-            <Button onClick={updateGraph}>
-                Сохранить изменения 📁
-            </Button>
+            {
+                owner === user ? (
+                    <Button onClick={updateGraph}>
+                        Сохранить изменения 📁
+                    </Button>
+                ) : (
+                    <></>
+                )
+            }
+
         </NodeBox>
     );
 };

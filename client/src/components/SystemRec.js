@@ -12,7 +12,7 @@ const SysHeader = styled(Typography)(({theme})=> ({
     fontSize: 16,
     margin: theme.spacing(1, 0)
 }))
-const SystemRec = ({name, data, setData}) => {
+const SystemRec = ({name, data, setData, owner}) => {
 
     const [recommendations, setRecommendations] = useState([])
 
@@ -52,6 +52,7 @@ const SystemRec = ({name, data, setData}) => {
                         key={rec.title}
                         data={data}
                         setData={setData}
+                        owner={owner}
                     />
                 )
             }
