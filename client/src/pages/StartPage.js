@@ -4,6 +4,8 @@ import Button from "@mui/material/Button";
 import {styled} from "@mui/material/styles";
 import Web3 from "web3";
 import {AppContext} from "../components/AppContext";
+import {ReactComponent as MMIcon} from "../assets/metamask.svg"
+
 
 const StartBox = styled(Box)(({theme})=>({
     margin: 'auto',
@@ -27,7 +29,10 @@ const StartPage = () => {
 
     return (
         <StartBox>
-            <Button onClick={authViaMetamask} sx={{marginTop: 20}}>Войти с MetaMask</Button>
+            <Button onClick={authViaMetamask} sx={{marginTop: 20}}>
+                Войти с MetaMask
+                <MMIcon width={30} />
+            </Button>
         </StartBox>
     );
 };

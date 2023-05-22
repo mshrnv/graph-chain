@@ -4,6 +4,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const graphRouter = require("./routers/GraphRouter");
 const likeRouter = require("./routers/LikeRouter");
+const cacheRouter = require("./routers/RecCacheRouter");
 require('dotenv').config(); // For .env files
 
 // Server port
@@ -23,6 +24,7 @@ app.use(cors())
 // Routes
 app.use("/", graphRouter)
 app.use("/", likeRouter)
+app.use("/", cacheRouter)
 
 
 const start = () => {

@@ -26,6 +26,17 @@ class GraphService {
         return JSON.parse(recs.data)
     }
 
+    static async getCache(query) {
+        const cache = await axios.get('http://127.0.0.1:5000/rec/?query=' + query);
+        return cache
+    }
+
+
+    static async setCache(query, data) {
+        const cache = await axios.post('http://127.0.0.1:5000/rec', {query, data: JSON.stringify(data)});
+        return cache
+    }
+
     static async createGraph(graphName, userAccount) {
         const graph = await axios.post('http://localhost:5000/graph', {
             name: graphName,
