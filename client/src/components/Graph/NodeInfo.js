@@ -89,8 +89,7 @@ const NodeInfo = ({data, setData, selected, setSelected, graphId}) => {
     }
 
     const updateGraph = async () => {
-        GraphService.updateGraphData(graphId, data)
-            .then(setData)
+        await GraphService.updateGraphData(graphId, data)
         // toast("🔥Graph saved!");
         // setData(newData)
         toast("🔥Graph saved!");
@@ -129,7 +128,7 @@ const NodeInfo = ({data, setData, selected, setSelected, graphId}) => {
             </DescNode>
             <ToastContainer />
             <Button onClick={updateGraph}>
-                Save changes 📁
+                Сохранить изменения 📁
             </Button>
         </NodeBox>
     );

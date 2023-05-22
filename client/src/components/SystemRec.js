@@ -12,7 +12,7 @@ const SysHeader = styled(Typography)(({theme})=> ({
     fontSize: 16,
     margin: theme.spacing(1, 0)
 }))
-const SystemRec = ({name}) => {
+const SystemRec = ({name, data, setData}) => {
 
     const [recommendations, setRecommendations] = useState([])
 
@@ -47,7 +47,12 @@ const SystemRec = ({name}) => {
             <hr color={'white'}/>
             {
                 recommendations.map(rec =>
-                    <SysRecItem rec={rec} key={rec.title} />
+                    <SysRecItem
+                        rec={rec}
+                        key={rec.title}
+                        data={data}
+                        setData={setData}
+                    />
                 )
             }
             {isRecsLoading &&

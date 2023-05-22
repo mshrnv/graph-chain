@@ -36,6 +36,8 @@ const GraphPage = () => {
             <Grid item xs={4} md={4}>
                 <SystemRec
                     name={graphName}
+                    data={data}
+                    setData={setData}
                 />
             </Grid>
         </Grid>
