@@ -19,7 +19,7 @@ const NodeBtn = styled(IconButton)(({theme}) => ({
     height: '20px',
 }))
 
-const NodeDiv = styled('div')(({theme})=>({
+const NodeDiv = styled('div')(({theme}) => ({
     height: '100%',
     justifyContent: 'center',
     display: 'flex',
@@ -45,14 +45,14 @@ const Node = ({node, data, setData, setSelected}) => {
     let background = node.isFolder ? theme.palette.nodes.folder : theme.palette.nodes.file;
     let icon = node.isFolder ? (<FolderIcon/>) : (<GitHubIcon/>);
     if (node.isRoot) {
-        icon = (<AdjustIcon />);
-        background = theme.palette.nodes.root
+        icon = (<AdjustIcon/>);
     }
 
     // Menu buttons click handlers
     const handleNewNode = (event) => {
         const randNum = Math.floor(Math.random() * 10000) + 1;
-        setData({nodes: [...data.nodes, {
+        setData({
+            nodes: [...data.nodes, {
                 id: `Новый ресурс #${randNum}`,
                 isRoot: false,
                 isFolder: false,
@@ -61,13 +61,15 @@ const Node = ({node, data, setData, setSelected}) => {
             }], links: [...data.links, {
                 source: node.id,
                 target: `Новый ресурс #${randNum}`
-            }]})
+            }]
+        })
         handleClose()
     }
 
     const handleNewFolder = (event) => {
         const randNum = Math.floor(Math.random() * 10000) + 1;
-        setData({nodes: [...data.nodes, {
+        setData({
+            nodes: [...data.nodes, {
                 id: `Новая папка #${randNum}`,
                 isRoot: false,
                 isFolder: true,
@@ -76,7 +78,8 @@ const Node = ({node, data, setData, setSelected}) => {
             }], links: [...data.links, {
                 source: node.id,
                 target: `Новая папка #${randNum}`
-            }]})
+            }]
+        })
         handleClose()
     }
 
@@ -104,15 +107,15 @@ const Node = ({node, data, setData, setSelected}) => {
     return (
 
         <NodeDiv>
-                <NodeBtn
-                    aria-describedby={node.id}
-                    onClick={() => setSelected(node)}
-                    onContextMenu={handleClick}
-                    variant={variant}
-                    color = 'inherit'
-                >
-                    {icon}
-                </NodeBtn>
+            <NodeBtn
+                aria-describedby={node.id}
+                onClick={() => setSelected(node)}
+                onContextMenu={handleClick}
+                variant={variant}
+                color='inherit'
+            >
+                {icon}
+            </NodeBtn>
 
 
             <Menu
@@ -124,19 +127,19 @@ const Node = ({node, data, setData, setSelected}) => {
             >
                 <MenuItem>
                     <ListItemIcon>
-                        <AddIcon fontSize="small" />
+                        <AddIcon fontSize="small"/>
                     </ListItemIcon>
                     <ListItemText primary="Добавить ресурс" onClick={handleNewNode}/>
                 </MenuItem>
                 <MenuItem>
                     <ListItemIcon>
-                        <CreateNewFolderIcon fontSize="small" />
+                        <CreateNewFolderIcon fontSize="small"/>
                     </ListItemIcon>
                     <ListItemText primary="Добавить папку" onClick={handleNewFolder}/>
                 </MenuItem>
                 <MenuItem>
                     <ListItemIcon>
-                        <DeleteIcon fontSize="small" />
+                        <DeleteIcon fontSize="small"/>
                     </ListItemIcon>
                     <ListItemText primary="Удалить ветку" onClick={handleDelete}/>
                 </MenuItem>

@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {FormControl, Grid, Input} from "@mui/material";
+import {FormControl, Input} from "@mui/material";
 import GraphCard from "../components/UI/GraphCard";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -93,11 +93,11 @@ const ListGraphPage = () => {
                     </FormControl>
                 </Modal>
             </CreateBox>
-            <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 1, md: 1}}>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {graphs.map(item =>
                     <GraphCard key={item.name} item={item}></GraphCard>
                 )}
-            </Grid>
+            </div>
         </Box>
     );
 };

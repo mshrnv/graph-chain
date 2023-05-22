@@ -1,17 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Typography} from "@mui/material";
-import {styled} from "@mui/material/styles";
 import SysRecItem from "./UI/SysRecItem";
 import GraphService from "../api/GraphService";
 import {useFetching} from "../hooks/useFetching";
 import RecLoader from "./UI/RecLoader";
 
-const SysHeader = styled(Typography)(({theme})=> ({
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 16,
-    margin: theme.spacing(1, 0)
-}))
 const SystemRec = ({name, data, setData, owner}) => {
 
     const [recommendations, setRecommendations] = useState([])
@@ -43,21 +35,26 @@ const SystemRec = ({name, data, setData, owner}) => {
         <div>
             {recsError &&
                 <h6>Произошла ошибка: {recsError}</h6>}
-            <SysHeader>Приложение рекомендует:</SysHeader>
-            <hr color={'white'}/>
-            {
-                recommendations.map(rec =>
-                    <SysRecItem
-                        rec={rec}
-                        key={rec.title}
-                        data={data}
-                        setData={setData}
-                        owner={owner}
-                    />
-                )
-            }
+            <h1 className="mb-4 text-xl font-extrabold leading-none tracking-tight text-white text-center mt-4">
+                Приложение рекомендует
+            </h1>
+            <div className="flow-root">
+                <ul className="divide-y divide-gray-700">
+                    {
+                        recommendations.map(rec =>
+                            <SysRecItem
+                                rec={rec}
+                                key={rec.title}
+                                data={data}
+                                setData={setData}
+                                owner={owner}
+                            />
+                        )
+                    }
+                </ul>
+            </div>
             {isRecsLoading &&
-                <RecLoader />
+                <RecLoader/>
             }
         </div>
     );

@@ -6,7 +6,7 @@ import {useParams} from "react-router-dom";
 import GraphService from "../api/GraphService";
 
 const GraphPage = () => {
-    const { graphId } = useParams();
+    const {graphId} = useParams();
 
     const [owner, setOwner] = useState(null)
     const [graphName, setGraphName] = useState("")

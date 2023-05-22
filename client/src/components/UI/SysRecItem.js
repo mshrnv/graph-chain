@@ -1,5 +1,4 @@
 import React, {useContext} from 'react';
-import {styled} from "@mui/material/styles";
 import {IconButton, Typography} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import RatingRecItem from "./RatingRecItem";
@@ -11,18 +10,7 @@ import Box from "@mui/material/Box";
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import {AppContext} from "../AppContext";
-
-const Item = styled('div')(({theme}) => ({
-    marginTop: theme.spacing(1),
-    backgroundColor: theme.palette.recItem.bgColor,
-    borderRadius: theme.shape.borderRadius.recItem,
-    justifyContent: 'center',
-    alignItems: 'center',
-    display: 'flex',
-
-
-}))
-const NameItem = styled(Typography)(({theme}) => ({}))
+import makeBadge from "../../utils/makeBadge";
 
 const style = {
     position: 'absolute',
@@ -76,50 +64,66 @@ const SysRecItem = ({rec, data, setData, owner}) => {
     }
 
     return (
-        <Item>
-            <RatingRecItem props={parseRecItem(rec)}></RatingRecItem>
-            <a href={rec.url} style={{color: "white", textDecoration: "none"}}>
-                <NameItem>{rec.title}</NameItem>
-            </a>
-            {
-                user === owner ? (
-                    <Box>
-                        <IconButton onClick={handleOpen} sx={{marginLeft: 'auto'}}>
-                            <AddIcon/>
-                        </IconButton>
-                        <Modal
-                            open={open}
-                            onClose={handleClose}
-                            aria-labelledby="modal-modal-title"
-                            aria-describedby="modal-modal-description"
-                        >
-                            <FormControl sx={style}>
-                                <Typography sx={{marginBottom: 2}}>Добавить ресурс "{rec.title}" к ноде:</Typography>
-                                <Select
-                                    labelId="demo-simple-select-standard-label"
-                                    id="demo-simple-select-standard"
-                                    onChange={handleChange}
+        <li className="py-3">
+            <div className="flex items-center space-x-4">
+                <div className='w-20'>
+                    <RatingRecItem props={parseRecItem(rec)}></RatingRecItem>
+                </div>
+                <div className="min-w-0 flex-1">
+                    <p className="truncate text-md font-bold text-white">
+                        <a href={rec.url}>{rec.title}</a>
+                    </p>
+                    <div className='flex flex-wrap'>
+                        <p className="truncate text-sm text-gray-400 mr-2">
+                            {rec.author || ""}
+                        </p>
+                        {makeBadge(rec)}
+                    </div>
+
+                </div>
+                <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                    {
+                        user === owner ? (
+                            <Box>
+                                <IconButton onClick={handleOpen} sx={{marginLeft: 'auto'}}>
+                                    <AddIcon/>
+                                </IconButton>
+                                <Modal
+                                    open={open}
+                                    onClose={handleClose}
+                                    aria-labelledby="modal-modal-title"
+                                    aria-describedby="modal-modal-description"
                                 >
-                                    {data.nodes.map((node) =>
-                                        <MenuItem key={node.id} value={node.id}>{node.id}</MenuItem>
-                                    )}
-                                </Select>
-                                <div style={{marginTop: 20}}>
-                                    <Button onClick={addRecToGraph}>
-                                        Да
-                                    </Button>
-                                    <Button onClick={handleClose}>
-                                        Отмена
-                                    </Button>
-                                </div>
-                            </FormControl>
-                        </Modal>
-                    </Box>
-                ) : (
-                    <></>
-                )
-            }
-        </Item>
+                                    <FormControl sx={style}>
+                                        <Typography sx={{marginBottom: 2}}>Добавить ресурс "{rec.title}" к
+                                            ноде:</Typography>
+                                        <Select
+                                            labelId="demo-simple-select-standard-label"
+                                            id="demo-simple-select-standard"
+                                            onChange={handleChange}
+                                        >
+                                            {data.nodes.map((node) =>
+                                                <MenuItem key={node.id} value={node.id}>{node.id}</MenuItem>
+                                            )}
+                                        </Select>
+                                        <div style={{marginTop: 20}}>
+                                            <Button onClick={addRecToGraph}>
+                                                Да
+                                            </Button>
+                                            <Button onClick={handleClose}>
+                                                Отмена
+                                            </Button>
+                                        </div>
+                                    </FormControl>
+                                </Modal>
+                            </Box>
+                        ) : (
+                            <></>
+                        )
+                    }
+                </div>
+            </div>
+        </li>
     );
 };
 

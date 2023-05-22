@@ -3,8 +3,8 @@ import KnowledgeGraph from "./KnowledgeGraph";
 import NodeInfo from "./NodeInfo";
 import {styled} from "@mui/material/styles";
 
-const GraphDiv = styled('div')(({theme})=> ({
-   margin: theme.spacing(0,2)
+const GraphDiv = styled('div')(({theme}) => ({
+    margin: theme.spacing(0, 2)
 }))
 const GraphBox = ({graphId, owner, data, setData}) => {
     const [selected, setSelected] = useState(null);

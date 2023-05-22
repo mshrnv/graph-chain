@@ -4,6 +4,7 @@ import ListGraphPage from "./pages/ListGraphPage";
 import ProfilePage from "./pages/ProfilePage";
 import StartPage from "./pages/StartPage";
 import {Navigate} from "react-router-dom";
+
 export const authRoutes = [
     {
         path: LIST_GRAPH_PAGE,

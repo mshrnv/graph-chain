@@ -11,6 +11,7 @@ const GraphConfig = {
     "linkHighlightBehavior": true,
     "maxZoom": 8,
     "minZoom": 0.1,
+    "initialZoom": 1.1,
     "nodeHighlightBehavior": true,
     "panAndZoom": false,
     "staticGraph": false,
