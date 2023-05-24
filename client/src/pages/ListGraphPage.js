@@ -13,6 +13,7 @@ import GraphService from "../api/GraphService";
 import {AppContext} from "../components/AppContext";
 import {CONTRACT_ABI, CONTRACT_ADDRESS} from "../ContractConfig";
 import Web3 from "web3";
+import parseResources from "../utils/resourseParser";
 
 
 const CreateGraphButton = styled(Button)(({theme}) => ({
@@ -44,6 +45,7 @@ const ListGraphPage = () => {
     const [graphs, setGraphs] = useState([]);
 
     const [graphName, setGraphName] = useState("");
+    const [graphPrice, setGraphPrice] = useState(2);
 
     const createNewGraph = async () => {
         // Mongo
@@ -52,7 +54,7 @@ const ListGraphPage = () => {
         // Blockchain
         const web3 = new Web3(Web3.givenProvider || 'http://localhost:7545');
         const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
-        await contract.methods.newGraph(data._id).send({from: user})
+        await contract.methods.newGraph(data._id, graphPrice).send({from: user})
 
         // Update
         await updateGraphs()
@@ -60,7 +62,12 @@ const ListGraphPage = () => {
     }
 
     const updateGraphs = async () => {
-        const data = await GraphService.getAllGraphs();
+        let data = await GraphService.getAllGraphs();
+
+        for (let i = 0; i < data.length; i++) {
+            data[i] = {...data[i], ...parseResources(data[i].data)}
+        }
+
         setGraphs(data);
     }
 
@@ -85,11 +92,14 @@ const ListGraphPage = () => {
                         <Typography>Введите название графа</Typography>
                         <div>
                             <Input value={graphName} onChange={(e) => setGraphName(e.target.value)}></Input>
+                        </div>
+                        <Typography>Введите стоимость графа в ETH</Typography>
+                        <div>
+                            <Input value={graphPrice} onChange={(e) => setGraphPrice(e.target.value)}></Input>
                             <IconButton onClick={createNewGraph} sx={{marginLeft: 2}}>
                                 <CheckIcon/>
                             </IconButton>
                         </div>
-
                     </FormControl>
                 </Modal>
             </CreateBox>

@@ -63,6 +63,8 @@ const SysRecItem = ({rec, data, setData, owner}) => {
         handleClose()
     }
 
+    console.log(rec)
+
     return (
         <li className="py-3">
             <div className="flex items-center space-x-4">
@@ -74,12 +76,11 @@ const SysRecItem = ({rec, data, setData, owner}) => {
                         <a href={rec.url}>{rec.title}</a>
                     </p>
                     <div className='flex flex-wrap'>
-                        <p className="truncate text-sm text-gray-400 mr-2">
-                            {rec.author || ""}
-                        </p>
+                        {/*<p className="truncate text-sm text-gray-400 mr-2">*/}
+                        {/*    /!*{Array.isArray(rec.author) ? rec.author[0] : rec.author || ""}*!/*/}
+                        {/*</p>*/}
                         {makeBadge(rec)}
                     </div>
-
                 </div>
                 <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                     {

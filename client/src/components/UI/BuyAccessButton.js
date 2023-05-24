@@ -20,7 +20,7 @@ const style = {
     p: 4,
 };
 
-const BuyAccessButton = ({graphId, setUpdateAccess}) => {
+const BuyAccessButton = ({price, graphId, setUpdateAccess}) => {
     const [user, setUser] = useContext(AppContext)
 
     const [open, setOpen] = React.useState(false);
@@ -30,7 +30,8 @@ const BuyAccessButton = ({graphId, setUpdateAccess}) => {
     const buyAccess = () => {
         const web3 = new Web3(Web3.givenProvider || 'http://localhost:7545');
         const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
-        contract.methods.buyAccess(graphId).send({from: user, value: web3.utils.toWei(String(2), 'ether')})
+
+        contract.methods.buyAccess(graphId).send({from: user, value: web3.utils.toWei(String(price), 'ether')})
             .then((value) => setUpdateAccess((item) => !item))
             .catch((value) => console.log(value));
 
@@ -41,6 +42,9 @@ const BuyAccessButton = ({graphId, setUpdateAccess}) => {
         <Box>
             <Button className='font-bold' gradientMonochrome="info" size={'sm'} onClick={handleOpen}>
                 Купить доступ
+                <span className="inline-flex items-center justify-center w-12 h-6 ml-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-lg">
+                    {price} ETH
+                </span>
             </Button>
             <Modal
                 open={open}
