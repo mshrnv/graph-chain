@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import {Graph} from 'react-d3-graph';
 import GraphConfig from "../../utils/GraphConfig";
 import Node from "./Node";
 import {styled} from "@mui/material/styles";
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
 
 const DivKGraph = styled('div')(({theme}) => ({
     width: '100%',
@@ -29,9 +30,12 @@ function KnowledgeGraph({data, setData, setSelected}) {
         setData(newData);
     }
 
+    const [classes, setClasses] = useState(["knowledge-graph", "relative"]);
+    const [fullScreen, setFullScreen] = useState(false);
+
 
     return (
-        <div className="knowledge-graph">
+        <div className={"knowledge-graph relative"}>
             <DivKGraph id='graph'>
                 <Graph
                     id="graph-id"
@@ -39,9 +43,13 @@ function KnowledgeGraph({data, setData, setSelected}) {
                     config={myConfig}
                     onNodePositionChange={onNodeMove}
                     onClickGraph={() => setSelected(false)}
-
                 />
             </DivKGraph>
+            <div className='absolute bottom-2 right-2'>
+                <button>
+                    <FullscreenIcon/>
+                </button>
+            </div>
         </div>
     );
 }
