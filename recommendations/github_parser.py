@@ -26,13 +26,17 @@ def parse_github_info(html_str, url):
         "title": None,
         "stars": 0,
         "url": str(url),
-        "languages": None
+        "languages": None,
+        "author": None,
+        "author_href": None
     }
 
     try:
         title = soup.find('p', class_='f4 my-3').text.strip()
 
         path = url.split('//')[-1].split('/', 1)[-1]
+        author = path.split('/')[0]
+        author_href = "https://github.com/" + author
         stars = soup.find('a', href='/' + path + '/stargazers').strong.text.strip()
         forks = soup.find('a', href='/' + path + '/forks').strong.text.strip()
         watching = soup.find('a', href='/' + path + '/watchers').strong.text.strip()
@@ -48,7 +52,9 @@ def parse_github_info(html_str, url):
             "title": title,
             "stars": stars,
             "url": str(url),
-            "languages": languages
+            "languages": languages,
+            "author": author,
+            "author_href": author_href
         }
 
     except:

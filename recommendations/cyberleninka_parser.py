@@ -74,10 +74,11 @@ def extract_author_info(html_string: str) -> Optional[List[Dict[str, Union[int, 
             for match in matches:
                 author_id = int(match[0])
                 author_name = match[1]
-                if not any(author.get('id') == author_id for author in authors):
-                    authors.append({"id": author_id, "name": author_name})
+                if author_name not in authors:
+                    authors.append(author_name)
             if authors:
-                return authors
+                return ', '.join(authors)
         return None
     except Exception:
         return None
+
