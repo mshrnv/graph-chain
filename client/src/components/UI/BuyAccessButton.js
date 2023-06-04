@@ -40,7 +40,7 @@ const BuyAccessButton = ({price, graphId, setUpdateAccess}) => {
 
     return (
         <Box>
-            <Button className='font-bold' gradientMonochrome="info" size={'sm'} onClick={handleOpen}>
+            <Button className='font-bold w-full' gradientMonochrome="info" size={'sm'} onClick={handleOpen}>
                 Купить доступ
                 <span className="inline-flex items-center justify-center w-12 h-6 ml-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-lg">
                     {price} ETH

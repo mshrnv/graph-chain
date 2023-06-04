@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const graphRouter = require("./routers/GraphRouter");
-const likeRouter = require("./routers/LikeRouter");
+const reviewRouter = require("./routers/ReviewRouter");
 const cacheRouter = require("./routers/RecCacheRouter");
 require('dotenv').config(); // For .env files
 
@@ -23,7 +23,7 @@ app.use(cors())
 
 // Routes
 app.use("/", graphRouter)
-app.use("/", likeRouter)
+app.use("/review", reviewRouter)
 app.use("/", cacheRouter)
 
 

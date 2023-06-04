@@ -4,7 +4,6 @@ import GraphCard from "../components/UI/GraphCard";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import {styled} from "@mui/material/styles";
-import HubIcon from '@mui/icons-material/Hub';
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import CheckIcon from '@mui/icons-material/Check';
@@ -78,10 +77,12 @@ const ListGraphPage = () => {
     return (
         <Box sx={{width: '80%', margin: 'auto'}}>
             <CreateBox>
-                <CreateGraphButton onClick={handleOpen}>
-                    <HubIcon sx={{marginRight: 1}}/>
+
+                <button type="button"
+                        onClick={handleOpen}
+                        className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-800 shadow-lg shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-4 w-full">
                     Создайте свой граф
-                </CreateGraphButton>
+                </button>
                 <Modal
                     open={open}
                     onClose={handleClose}

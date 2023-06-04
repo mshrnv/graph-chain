@@ -4,6 +4,7 @@ import GraphBox from "../components/Graph/GraphBox";
 import SystemRec from "../components/SystemRec";
 import {useParams} from "react-router-dom";
 import GraphService from "../api/GraphService";
+import GraphReviews from "../components/GraphReviews";
 
 const GraphPage = () => {
     const {graphId} = useParams();
@@ -31,6 +32,9 @@ const GraphPage = () => {
                     owner={owner}
                     data={data}
                     setData={setData}
+                />
+                <GraphReviews
+                    graphId={graphId}
                 />
             </Grid>
             <Grid item xs={4} md={4}>
