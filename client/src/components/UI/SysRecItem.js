@@ -11,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import {AppContext} from "../AppContext";
 import makeBadge from "../../utils/makeBadge";
+import {Link} from "react-router-dom";
 
 const style = {
     position: 'absolute',
@@ -63,12 +64,10 @@ const SysRecItem = ({rec, data, setData, owner}) => {
         handleClose()
     }
 
-    console.log(rec)
-
     return (
         <li className="py-3">
-            <div className="flex items-center space-x-4">
-                <div className='w-20'>
+            <div className="flex items-center">
+                <div className=''>
                     <RatingRecItem props={parseRecItem(rec)}></RatingRecItem>
                 </div>
                 <div className="min-w-0 flex-1">
@@ -76,9 +75,11 @@ const SysRecItem = ({rec, data, setData, owner}) => {
                         <a href={rec.url}>{rec.title}</a>
                     </p>
                     <div className='flex flex-wrap'>
-                        {/*<p className="truncate text-sm text-gray-400 mr-2">*/}
-                        {/*    /!*{Array.isArray(rec.author) ? rec.author[0] : rec.author || ""}*!/*/}
-                        {/*</p>*/}
+                        <Link to={rec.author_href ? rec.author_href : ""} >
+                            <p className="truncate text-sm text-gray-400 mr-2">
+                                {rec.author ? rec.author : ""}
+                            </p>
+                        </Link>
                         {makeBadge(rec)}
                     </div>
                 </div>

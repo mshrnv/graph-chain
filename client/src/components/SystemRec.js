@@ -23,7 +23,6 @@ const SystemRec = ({name, data, setData, owner}) => {
         const recs = await GraphService.getRecommendations(graphName)
         setRecommendations(recs)
         const cached = await GraphService.setCache(graphName, recs)
-        console.log("cached")
     })
 
     useEffect(() => {

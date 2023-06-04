@@ -65,7 +65,7 @@ def extract_likes(html_string: str) -> Optional[Dict[str, int]]:
         return None
 
 
-def extract_author_info(html_string: str) -> Optional[List[Dict[str, Union[int, str]]]]:
+def extract_author_info(html_string: str):
     try:
         pattern = r'"id":\s*(\d+),\s*"name":\s*"([^"]+)"'
         matches = re.findall(pattern, html_string)

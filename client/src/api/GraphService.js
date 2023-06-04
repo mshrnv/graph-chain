@@ -22,7 +22,6 @@ class GraphService {
 
     static async getRecommendations(graphName) {
         const recs = await axios.get('http://127.0.0.1:8000/?q=' + graphName);
-        console.log(recs.data)
         return JSON.parse(recs.data)
     }
 

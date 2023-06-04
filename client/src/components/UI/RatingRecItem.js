@@ -20,16 +20,20 @@ const RatingRecItem = ({props}) => {
     let icon;
     if (props.resource === 'github') {
         rating = <CountRate>{props.rate}</CountRate>
-        icon = <StarBorderIcon></StarBorderIcon>
+        // icon = <StarBorderIcon></StarBorderIcon>
+        icon = "🌟"
     } else if (props.resource === 'habr') {
         rating = <CountRate>{props.rate}</CountRate>
-        icon = <BookmarkBorderIcon></BookmarkBorderIcon>
+        // icon = <BookmarkBorderIcon></BookmarkBorderIcon>
+        icon = "📁"
     } else if (props.resource === 'vc') {
         rating = <CountRate>{props.rate}</CountRate>
-        icon = <FavoriteBorderIcon></FavoriteBorderIcon>
+        // icon = <FavoriteBorderIcon></FavoriteBorderIcon>
+        icon = "❤️"
     } else {
         rating = <CountRate>{props.rate}</CountRate>
-        icon = <BookmarkBorderIcon></BookmarkBorderIcon>
+        // icon = <BookmarkBorderIcon></BookmarkBorderIcon>
+        icon = "❤️"
     }
     return (
         <Rate>
